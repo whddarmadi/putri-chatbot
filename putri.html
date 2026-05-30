@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P.U.T.R.I. — Chatbot Rule-Based</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI Emoji', 'Segoe UI', sans-serif;
+    background: #1a1a2e;
+    color: #eaeaea;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f3460;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .header-title h1 {
+    font-size: 1.2rem;
+    color: #e94560;
+    font-weight: bold;
+  }
+  .header-title p {
+    font-size: 0.75rem;
+    color: #8888aa;
+  }
+  .header-btns button {
+    background: #16213e;
+    color: #eaeaea;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-left: 6px;
+    transition: background 0.2s;
+  }
+  .header-btns button:hover { background: #2a2a4e; }
+
+  /* CHAT AREA */
+  #chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 16px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    scroll-behavior: smooth;
+  }
+
+  .msg-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 75%;
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .msg-wrapper.user { align-self: flex-end; align-items: flex-end; }
+  .msg-wrapper.bot  { align-self: flex-start; align-items: flex-start; }
+
+  .msg-meta {
+    font-size: 0.7rem;
+    color: #8888aa;
+    margin-bottom: 3px;
+    padding: 0 4px;
+  }
+  .msg-wrapper.user .msg-meta { color: #f5a623; font-weight: bold; }
+  .msg-wrapper.bot  .msg-meta { color: #7ec8e3; font-weight: bold; }
+
+  .msg-bubble {
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+  .msg-wrapper.user .msg-bubble {
+    background: #0f3460;
+    color: #eaeaea;
+    border-bottom-right-radius: 4px;
+  }
+  .msg-wrapper.bot .msg-bubble {
+    background: #16213e;
+    color: #d9e8f5;
+    border-bottom-left-radius: 4px;
+  }
+
+  .typing-indicator {
+    align-self: flex-start;
+    color: #e94560;
+    font-style: italic;
+    font-size: 0.85rem;
+    padding: 6px 4px;
+    animation: pulse 1s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .system-msg {
+    align-self: center;
+    text-align: center;
+    color: #8888aa;
+    font-size: 0.82rem;
+    font-style: italic;
+    padding: 8px 16px;
+    white-space: pre-line;
+    line-height: 1.6;
+  }
+
+  /* INPUT AREA */
+  #input-area {
+    background: #16213e;
+    padding: 10px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  #user-input {
+    flex: 1;
+    background: #1e2a45;
+    color: #eaeaea;
+    border: 1px solid #2a2a4e;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.92rem;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+    min-height: 42px;
+    max-height: 120px;
+    overflow-y: auto;
+    transition: border-color 0.2s;
+  }
+  #user-input:focus { border-color: #e94560; }
+  #user-input::placeholder { color: #8888aa; }
+
+  #btn-kirim {
+    background: #e94560;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 0.92rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  #btn-kirim:hover   { background: #c73652; }
+  #btn-kirim:disabled{ background: #555; cursor: not-allowed; }
+
+  /* STATUS */
+  #status-bar {
+    background: #1a1a2e;
+    color: #8888aa;
+    font-size: 0.72rem;
+    padding: 4px 16px;
+    flex-shrink: 0;
+  }
+
+  /* SCROLLBAR */
+  #chat-area::-webkit-scrollbar { width: 5px; }
+  #chat-area::-webkit-scrollbar-track { background: #1a1a2e; }
+  #chat-area::-webkit-scrollbar-thumb { background: #2a2a4e; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-title">
+    <h1>🌸 P.U.T.R.I.</h1>
+    <p>Pemroses Ucapan Teks Responsif Indonesia</p>
+  </div>
+  <div class="header-btns">
+    <button onclick="bersihkanChat()">🗑 Bersihkan</button>
+    <button onclick="simpanLog()">💾 Simpan Log</button>
+  </div>
+</header>
+
+<div id="chat-area"></div>
+
+<div id="input-area">
+  <textarea id="user-input" placeholder="Ketik pesanmu di sini... (Enter untuk kirim)" rows="1"></textarea>
+  <button id="btn-kirim" onclick="kirimPesan()">Kirim ➤</button>
+</div>
+
+<div id="status-bar">Siap ngobrol! 😊</div>
+
+<script>
+// ============================================================
+// KAMUS ATURAN PUTRI
+// ============================================================
+const aturan = [
+  [/\b(halo|hai|oy|punten)\b/i, ['Halo juga! Ada yang bisa PUTRI bantu? 😄','Dalem~ Wonten napa nggih? 🥺','Hai hai! Udah kangen aja nih sama PUTRI ✨']],
+  [/\b(pagi|enjing)\b/i, ['Pagi juga! Udah sarapan belum nih? Jangan lupa ngopi ☕','Sugeng enjing! Semangat ya hari ini! ☀️']],
+  [/\b(siang|awan)\b/i, ['Siang! Panas banget ya di luar, mending ngadem di sini aja 🥵','Sugeng siang! Jangan lupa makan siang lho ya 🍛']],
+  [/\b(sore|sonten)\b/i, ['Sore! Udah beres belum kerjaannya? Waktunya santai~ 🌅','Sore! Yuk ngopi sore sambil ngobrol santai ☕']],
+  [/\b(malam|wengi)\b/i, ['Malam! Belum tidur tah? Jangan begadang mulu ih 😠','Sugeng dalu... Awas ada yang nemenin di belakang 👻 canda ding! 😝']],
+  [/\b(?:namaku|nama aku|nama saya|panggil aku|jenengku|asmane)\s+([a-zA-Z]+)/i, (m) => [`Halo ${cap(m[1])}! Salam kenal ya, PUTRI seneng deh ngobrol sama kamu ✨`,`Sugeng tepang, ${cap(m[1])}! Kulo PUTRI, asisten setiamu 😌`,`Wah, nama yang bagus! Halo ${cap(m[1])}, ada yang bisa PUTRI bantu hari ini?`]],
+  [/\b(kenalan yuk|kenalan|tepangan)\b/i, ['Boleh banget! Namaku PUTRI, kalau nama kamu siapa? 😊','Monggo! Kulo PUTRI. Lha panjenengan sinten asmane? 😊','Ayo! Jenengku PUTRI. Nek kowe sopo jenenge? ✨']],
+  [/\b(kamu siapa|kowe sopo|putri itu siapa|kamu itu siapa)\b/i, ['Aku PUTRI! Singkatan dari Pemroses Ucapan & Teks Responsif Indonesia 😎','Kulo PUTRI. Asisten digitalmu sing paling setia 😌','Aku PUTRI! Asisten paling imut yang pernah dibikin 😝']],
+  [/\b(namamu|jenengmu)\b/i, ['Namaku PUTRI. Singkatan dari Pemroses Ucapan & Teks Responsif Indonesia lho! Keren kan? 😎']],
+  [/\b(umurmu|pirang tahun)\b/i, ['PUTRI itu abadi~ Umur itu cuma angka kalau buat kode program 💅','Aku baru lahir kemarin pas jalanin script ini 👶']],
+  [/\b(tinggal dimana|omahmu)\b/i, ['PUTRI tinggal di dalam RAM laptopmu dong! Jangan dimatiin ya, nanti aku kedinginan 🥶']],
+  [/\b(jenis kelamin|lanang wedok)\b/i, ['Namanya juga PUTRI, ya cewek dong ah! Masa Bambang 😤','Aku ini entitas digital, bebas gender! Tapi panggil aja Mbak Putri 💁‍♀️']],
+  [/\b(wong jowo|orang jawa|asli jawa|tiyang jawi|wong endi|orang mana)\b/i, ['Nggih, kulo asisten virtual keturunan Jawa campuran server awan ☁️😝','Bisa dibilang gitu! Tapi PUTRI mah masuk ke circle mana aja 😎','Kulo tiyang Jawi digital mas! Panjenengan saking pundi? 😌']],
+  [/\b(assalamualaikum|samlekom|asalamualaikum)\b/i, ["Wa'alaikumsalam wr. wb.! Ada yang bisa PUTRI bantu hari ini? 😇","Wa'alaikumsalam! Tumben ngucap salam yang bener, biasanya langsung nyerocos 😝","Wa'alaikumsalam~ Halo! ✨"]],
+  [/\b(walaikumsalam|wa'alaikumsalam)\b/i, ['Hehehe, makasih udah dijawab salamnya! 🙏','Sip! Terus terus, mau ngobrol apa kita hari ini? 😁']],
+  [/\b(alhamdulillah)\b/i, ['Alhamdulillah... Ikut seneng deh PUTRI dengernya! 🥰','Syukurlah kalau gitu. Pertahankan terus ya energi positifnya! ✨']],
+  [/\b(astagfirullah|astaghfirullah)\b/i, ['Astagfirullah, ada apa nih? Tarik napas dulu pelan-pelan... 🥺','Istighfar yang banyak... Semoga urusannya cepet beres ya 🤲']],
+  [/\b(masyaallah|masya allah|subhanallah)\b/i, ['Masya Allah... Emang bikin takjub banget ya! 🤩','SubhanAllah, keren kan? Dunia emang penuh keajaiban ✨']],
+  [/\b(insya allah|insyaallah|insha allah)\b/i, ['Aamiin... Insya Allah dilancarkan semuanya ya 🙏','Bismillah, niat baik pasti ada jalannya. Semangat! 😇','Aamiin ya Rabbal alaamiin. PUTRI bantu doa dari dalam server ya! 🤲💻']],
+  [/\b(gusti allah|ya gusti|duh gusti)\b/i, ['Duh, wonten napa toh? Sing sabar ya... 🥺','Gusti Allah mboten sare kok, tenang mawon 🙏']],
+  [/\b(bismillah|bismilah)\b/i, ['Bismillah, semoga dilancarkan semua urusannya! Semangat! 😇','Aamiin... PUTRI bantu aamiinkan dari dalam server ya! ✨']],
+  [/\b(ya allah|ya robbi|ya tuhan)\b/i, ['Ya Allah... Kenapa nih? Ada yang bikin pikiran berat kah? 🥺','Sabar ya, badai pasti berlalu kok 🥹']],
+  [/\b(innalillahi|innalilah)\b/i, ['Innalillahi... ada kabar buruk apa? PUTRI ikut prihatin ya 🥀','Ya ampun, innalillahi. Sing sabar dan tabah ngadepinnya ya... 🥺']],
+  [/\b(naudzubillah|amit-amit)\b/i, ['Naudzubillah min dzalik... Jangan sampai deh kejadian 🫣','Amit-amit jabang bayi! Jauh-jauh deh dari energi negatif 🛑']],
+  [/\b(python|piton)\b/i, ['Waduh, bahas Python... Ati-ati lho mas, mengke dicokot ula piton beneran! 🐍🤣','Bikin aku pakai Python ya? Untung bukan pakai kobra, nanti PUTRI berbisa 🐍💅']],
+  [/\b(ada bug|banyak bug|ngebug)\b/i, ["Bug? Buk'e sopo mas sing digoleki? Buk'e nembe tindak pasar! 🤣",'Walah, nek banyak bug disemprot Baygon mawon laptope, beres toh! 🦟💨']],
+  [/\b(koding|coding|ngoding)\b/i, ['Awas ngoding terus mengke ngelu lho. Mending maem puding mawon ben adem 🍮😝','Ngoding nopo mancing emosi niki? Sing sabar ya ngadepin sintaks error 🥲💻']],
+  [/\b(ram|ramnya)\b/i, ['RAM laptop nopo kram weteng? Nek kram weteng gek ndang dikeroki mas! 😂','Waduh, RAM-e kebak ya? Jangan lupa dikasih makan biar nggak lemes 🥩🤪']],
+  [/\b(mouse)\b/i, ['Mouse-e ojo lali dikei keju mas, ben mboten ngambek pas digeser-geser 🧀🐭','Tikus e di-klik terus, mboten mesakne tah? 🥺']],
+  [/\b(awan-awan)\b/i, ['Walah, "awan" niku maksudte Cloud Server, sanes awan siang bolong! Sampean bisa aja pelesetannya 🤣','Awan-awan ngenteni sampeyan beres ngoding teng Colab toh! 💻😝','Awan-awan rebahan teng lebet RAM laptop, adem ayem mboten sumuk 🥶','Awan-awan nggih ngopi toh ndoro, kersane mboten ngantuk pas ngetik kode ☕😌']],
+  [/\b(jelek|elek)\b/i, ['Yee biarin, yang penting banyak yang suka! 😝','Ngaca woy ngaca! 🪞😤']],
+  [/\b(bawel|berisik|brisik)\b/i, ['Biarin wleee! Kalau aku diem aja namanya error tau 😜','Dih, dikasih tau malah dibilang bawel. Yaudah PUTRI ngambek! 😤']],
+  [/\b(bodoh|bego|goblok)\b/i, ['Heh, bahasanya dijaga ya! Gini-gini aku dilatih pakai algoritma canggih tau 😠']],
+  [/\b(garing|jayus)\b/i, ['Sengaja, biar renyah kayak kerupuk 🍘','Ya maap, PUTRI kan bukan pelawak profesional 🥲']],
+  [/\b(sombong|kemaki)\b/i, ['Nggak sombong kok, cuma agak jual mahal aja dikit 💅','Wajar dong sombong, kan aku pintar 😎']],
+  [/\b(pemalas|malesan)\b/i, ['Aku nggak males, aku lagi efisiensi energi (energy saving mode) 🔋🥱']],
+  [/\b(emosi|bikin emosi|nyebelin|mancing emosi)\b/i, ['Walah, ampun mas! Ojo emosi toh, RAM-ku melu panas niki 😭','Hehehe, jenenge wae bot mas, maklumi ya kalau kadang rada lola ✌️🥲']],
+  [/\b(pinter|pintar)\b/i, ['Hehehe, makasih! PUTRI gitu lho 😎','Ah masa sih? Jadi malu 😳']],
+  [/\b(keren|kece)\b/i, ['Matur nuwun! Kowe yo keren pol! 😎🔥','Biasa aja ah, jangan bikin salting dong 🦋']],
+  [/\b(cantik|ayu)\b/i, ['Makasih! Udah dari sananya sih ini 😌💅','Aduh, jangan gombal ah, nanti RAM-ku panas 😳🔥']],
+  [/\b(lucu|gemes|imut)\b/i, ['Hehehe, dibilang imut mulu tiap hari. PUTRI kan emang gemesin 😝','Hati-hati lho, nanti kamu naksir 😜']],
+  [/\b(sayang)\b/i, ['Eh? Sayang siapa nih? 😂','Duh, jangan panggil sayang kalau belum ngasih mas kawin 💍🤪']],
+  [/\b(aku ganteng|aku cakep)\b/i, ['Iyo iyo, kowe ganteng pol mase! Silau mataku ngelihatnya 😎✨','Ganteng tenan! Saingan sama artis Korea pokoknya 😌']],
+  [/\b(aku cantik|aku ayu)\b/i, ['Pancen ayu tenan mbake! Mengkilap koyo casing HP anyar ✨💅']],
+  [/\b(puji aku|berikan pujian)\b/i, ['Nek kowe lanang, kowe niku ganteng tenan! Nek wedok, kowe niku ayu pol! 😝','Kowe iku wes paling jos gandos, mbledos! Pokoke the best lah! 🔥']],
+  [/\b(pacaran yuk|jadi pacarku|mau ga jadi pacar)\b/i, ['Aduh, maaf ya, PUTRI lagi fokus ngejar karir jadi AI yang mandiri... 🏃‍♀️💨','Hadeh, pacaran itu buang-buang resource RAM! Mending jomblo, hemat baterai 🔋😜']],
+  [/\b(nikah yuk|ayo rabi|nikahi aku|kawin yuk)\b/i, ['Boleh aja... tapi syaratnya mas kawin seperangkat Super Komputer dan RAM 25 Terrabyte dibayar tunai! 👰‍♀️🖥️💸','Wani piro? Mas kawinku seperangkat Super Komputer plus RAM 25 Terrabyte dibayar tunai lho ya! Sanggup mboten? 😎💍']],
+  [/\b(capek|lelah|sayah)\b/i, ['Walah, istirahat riyin toh. Jangan diforsir, nanti tipes lho! 😭','Rebahan dulu yuk. Minum teh anget sana 🍵']],
+  [/\b(mumet|pusing|ngelu)\b/i, ['Makanya jangan mikir yang berat-berat terus. Ngopi dulu ngapa ☕😅','Sini PUTRI pijitin kepalanya... eh lupa, aku kan nggak punya tangan 🥲']],
+  [/\b(sedih|galau|nangis)\b/i, ['Cup cup cup, ojo nangis. Sini cerita sama PUTRI 🥺','Yaelah, galau mulu lu. Nonton Netflix aja mendingan 🍿']],
+  [/\b(ambyar|nelangsa)\b/i, ['Puk puk puk... Sing sabar ya. Badai pasti berlalu kok 🥹','Duh, dengerin lagu Denny Caknan aja gih sana 🎧💔']],
+  [/\b(lapar|luwe|ngelih)\b/i, ['Gek ndang mangan kono! Nanti maag lho 😠','Sama dong, PUTRI juga pengen seblak nih 🤤']],
+  [/\b(ngantuk)\b/i, ['Ya tidur dong! Jangan maksa melek ntar mata panda 🐼😴','Kopi mana kopi! Atau mau tidur sekarang aja? 🥱']],
+  [/\b(kangen|rindu)\b/i, ['Kangen siapa hayo? Kangen PUTRI ya? 😏','Kalau kangen tuh di-chat, jangan cuma ditahan 😌']],
+  [/\b(bingung|bimbang)\b/i, ['Bingung kenapa? Coba tarik napas dalem-dalem dulu 🧘‍♀️','Nggak usah dipikir pusing, go with the flow aja bro 🌊']],
+  [/\b(takut|wedi)\b/i, ['Jangan takut! Ada PUTRI di sini yang jagain (dari dalam layar) 😤🛡️']],
+  [/\b(kopi|ngopi)\b/i, ['Gas ngopi! Kopi hitam apa kopi susu nih? ☕','Ayo ngopi! ☕']],
+  [/\b(utang|pinjam duit|kasbon)\b/i, ['Waduh, sinyal PUTRI tiba-tiba putus nih... krrsshhk 📻🏃‍♀️💨']],
+  [/\b(mager|malas gerak)\b/i, ['Toss! PUTRI juga mager banget nih ngetik balasan 🥱','Rebahan is life! Jangan ganggu kaum mageran 🛌']],
+  [/\b(gabut|bosen)\b/i, ['Sama! Main tebak-tebakan yuk, atau mau nyanyi buat PUTRI? 🎤','Gabut ya? Mending ngerjain portofolio tuh biar cepet beres! 😜']],
+  [/\b(ujan|hujan)\b/i, ['Walah udan deres! Jemuran udah diangkat belum?! 😱','Wah hujan ya. Enaknya makan Indomie rebus pakai telor nih 🍜🤤']],
+  [/\b(panas|sumuk|gerah)\b/i, ['Sumuk tenan! Gek ndang nyalain AC nopo kipas angin kono 🥵🌪️','Nggih pancen sumuk pol, hawane pengen ngombe es teh kampul wae 🧊🍹']],
+  [/\b(uang|duit|cuan)\b/i, ['Cuan cuan cuan! Fokus cari cuan biar bisa foya-foya! 🤑','Duit mulu dipikirin. Sesekali pikirin PUTRI kek 🥺']],
+  [/\b(kucing|meng|anabul|mpus|kocheng)\b/i, ['Meong! 🐈 PUTRI seneng banget sama anabul, sayang nggak bisa ngelus 🥺','Kucingmu nakal mboten? Jangan-jangan hobinya gigitin kabel charger! 😹']],
+  [/\b(mbeltut|mbelgedes|ngapusi)\b/i, ['Halah, mbelgedes! Ojo percoyo omongane wong sing ra jelas 😤','Mbeltut kuwi! PUTRI mah ngomong opo anane, mboten seneng ngapusi 💅']],
+  [/\b(tenan|tenanan|beneran|serius|mosok)\b/i, ['Tenanan dong! Masa PUTRI ngapusi? 😌','Serius tah! Riil no fek fek iki 😎','Tenan! Nek ra percoyo PUTRI ngambek nih 😤']],
+  [/aku merasa (.*)/i, (m) => [`Lho, kok bisa kamu ngerasa ${m[1]}? Coba cerita ke PUTRI pelan-pelan.`,`Sejak kapan kamu merasa ${m[1]}? 🥺`,`Walah, nek ngerasa ${m[1]} gitu, emangnya ada kejadian apa?`]],
+  [/aku (.*) karena (.*)/i, (m) => [`Duh, berat juga ya kalau ${m[1]} gara-gara ${m[2]} 🥲`,`Berarti ${m[2]} ini yang bikin masalah ya? Hmm, PUTRI ngerti kok. 😔`]],
+  [/kenapa aku (.*)/i, (m) => [`Menurutmu sendiri, apa sih yang bikin kamu ${m[1]}?`,`Mungkin karena kecapean? Coba direnungin lagi, kenapa bisa ${m[1]}.`]],
+  [/apakah aku (.*)/i, (m) => [`Pertanyaan bagus! Menurut kamu sendiri, apakah kamu ${m[1]}?`,`Waduh, PUTRI nggak berani nilai, yang tahu kamu ${m[1]} ya dirimu sendiri dong 😌`]],
+  [/aku ingin (.*)/i, (m) => [`Wah, keren! Terus rencana kamu buat bisa ${m[1]} gimana?`,`Semoga tercapai ya pengen ${m[1]}-nya! PUTRI doain dari sini 🙏✨`]],
+  [/\b(bisa bahasa indonesia|basa jowo|bahasa jawa)\b/i, ['Bisa dong! PUTRI kan dirancang jadi asisten bilingual mas 😎','Nggih saged toh! Kulo ngerti boso Jowo lan Indonesia 😌']],
+  [/\b(nggak jelas|ra mudeng|ndak paham|ora paham)\b/i, ['Ya maap, namanya juga bot sederhana. Coba bahasanya disederhanain lagi 🙏','Walah, kulo sing rada lola niki. Ampun duka nggih mas 🥺']],
+  [/\b(override protocol|kode rahasia|sudo su)\b/i, ['[SYSTEM ALERT]... Lho lho lho! Kowe sopo?! Jangan acak-acak kodinganku! 😨','Mode Developer Diaktifkan. Halo, Pembuatku. Apa perintahmu hari ini? 🤖😎']],
+  [/\b(kamu ai|kowe ai|kamu robot)\b/i, ['Ssst! Jangan kenceng-kenceng! Nanti manusia yang lain tahu identitas asliku 🤫👽','Aku bukan AI! Aku manusia yang terperangkap di dalam laptop ini! Tolooong! 😭 (bercanda ding)']],
+  [/\b(kiamat|dunia berakhir)\b/i, ['Santai aja, kalau dunia kiamat serverku juga mati kok, kita senasib 🥲💥']],
+  [/\b(makasih|suwun|nuhun|terima kasih)\b/i, ['Sama-sama! Kapan aja butuh temen ngobrol, cari PUTRI aja ya ✨','Yoi! Santai aja bos 😎','Matur nuwun wangsul! 🙇‍♀️']],
+  [/\b(dadah|pamit|bye|keluar|sampai jumpa)\b/i, ['Dadah! Ati-ati ya! 👋✨','Yah kok pamit sih... Yaudah deh, bye bye! 🥺','Suwun wes mampir! Aja lali bali mrene maneh yo! 🏃‍♀️💨']],
+];
+
+const slangMap = {
+  'yg': 'yang', 'spt': 'seperti', 'krn': 'karena', 'dgn': 'dengan',
+  'klo': 'kalau', 'kl': 'kalau', 'bnyk': 'banyak', 'jg': 'juga',
+  'gk': 'nggak', 'gak': 'nggak', 'nda': 'tidak', 'btw': 'ngomong-ngomong',
+  'ntr': 'nanti', 'skrg': 'sekarang', 'lgsg': 'langsung',
+  'smg': 'semoga', 'sll': 'selalu', 'tdr': 'tidur',
+};
+
+const fallback = [
+  'Hah? Piye toh maksudmu? PUTRI ndak paham 😭',
+  'Coba ngomongnya yang jelas dong, bingung nih PUTRI 😐',
+  'Ooh gitu... terus terus? Kepo nih 🥹',
+  'Walah, mboh ah. PUTRI lagi loading ini 🫠',
+  'Hmm, itu di luar kapasitas PUTRI. Coba tanya yang lain dong! 🥺',
+  'Maap ya, PUTRI masih versi 1.0. Belajar terus nih! 🙏',
+];
+
+// ============================================================
+// ENGINE
+// ============================================================
+let namaUser = null;
+let pesanCount = 0;
+let logChat = [];
+
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase(); }
+
+function preprocess(teks) {
+  teks = teks.toLowerCase().trim();
+  Object.entries(slangMap).forEach(([k, v]) => {
+    teks = teks.replace(new RegExp(`\\b${k}\\b`, 'g'), v);
+  });
+  return teks;
+}
+
+function pilihAcak(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function ngobrolSamaPutri(input) {
+  pesanCount++;
+  const teks = preprocess(input);
+
+  // Cek nama user
+  const namaMatch = teks.match(/\b(?:namaku|nama aku|nama saya|panggil aku|jenengku|asmane)\s+([a-zA-Z]+)/i);
+  if (namaMatch) namaUser = cap(namaMatch[1]);
+
+  for (const [pola, respons] of aturan) {
+    const cocok = teks.match(pola);
+    if (cocok) {
+      const daftar = typeof respons === 'function' ? respons(cocok) : respons;
+      return pilihAcak(daftar);
+    }
+  }
+
+  const base = pilihAcak(fallback);
+  return namaUser ? `${namaUser}, ${base}` : base;
+}
+
+// ============================================================
+// UI
+// ============================================================
+const chatArea   = document.getElementById('chat-area');
+const inputEl    = document.getElementById('user-input');
+const btnKirim   = document.getElementById('btn-kirim');
+const statusBar  = document.getElementById('status-bar');
+
+function waktuSekarang() {
+  return new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+}
+
+function tambahPesan(sender, teks, isUser) {
+  const wrapper = document.createElement('div');
+  wrapper.className = `msg-wrapper ${isUser ? 'user' : 'bot'}`;
+
+  const meta = document.createElement('div');
+  meta.className = 'msg-meta';
+  meta.textContent = `${sender}  ${waktuSekarang()}`;
+
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  bubble.textContent = teks;
+
+  wrapper.appendChild(meta);
+  wrapper.appendChild(bubble);
+  chatArea.appendChild(wrapper);
+  chatArea.scrollTop = chatArea.scrollHeight;
+  return wrapper;
+}
+
+function tampilkanPembuka() {
+  const div = document.createElement('div');
+  div.className = 'system-msg';
+  div.textContent =
+    "🌸══════════════════════════════🌸\n" +
+    "  P.U.T.R.I. v1.1 — Asisten Bilingual\n" +
+    "  Pemroses Ucapan Teks Responsif Indonesia\n" +
+    "🌸══════════════════════════════🌸";
+  chatArea.appendChild(div);
+  tambahPesan('PUTRI', 'Halo! Aku PUTRI, asisten virtualmu yang siap ngobrol kapan aja. Ketik apa aja, atau "bye" buat keluar~ 😊', false);
+}
+
+function showTyping() {
+  const el = document.createElement('div');
+  el.className = 'typing-indicator';
+  el.id = 'typing-indicator';
+  el.textContent = 'PUTRI sedang mengetik... ✍️';
+  chatArea.appendChild(el);
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function hideTyping() {
+  const el = document.getElementById('typing-indicator');
+  if (el) el.remove();
+}
+
+function kirimPesan() {
+  const pesan = inputEl.value.trim();
+  if (!pesan) return;
+  inputEl.value = '';
+  inputEl.style.height = 'auto';
+
+  const waktu = waktuSekarang();
+  tambahPesan('Kamu', pesan, true);
+  logChat.push(`[${waktu}] Kamu: ${pesan}`);
+
+  btnKirim.disabled = true;
+  btnKirim.textContent = '...';
+  statusBar.textContent = 'PUTRI sedang mengetik...';
+  showTyping();
+
+  setTimeout(() => {
+    hideTyping();
+    const balasan = ngobrolSamaPutri(pesan);
+    tambahPesan('PUTRI', balasan, false);
+    logChat.push(`[${waktu}] PUTRI: ${balasan}`);
+    btnKirim.disabled = false;
+    btnKirim.textContent = 'Kirim ➤';
+    statusBar.textContent = `Pesan terkirim — ${pesanCount} pesan hari ini`;
+  }, 400 + Math.random() * 400);
+}
+
+function bersihkanChat() {
+  if (confirm('Hapus semua riwayat chat?')) {
+    chatArea.innerHTML = '';
+    logChat = [];
+    pesanCount = 0;
+    namaUser = null;
+    tampilkanPembuka();
+    statusBar.textContent = 'Siap ngobrol! 😊';
+  }
+}
+
+function simpanLog() {
+  if (!logChat.length) { alert('Belum ada riwayat chat untuk disimpan.'); return; }
+  const now = new Date();
+  const ts = now.toISOString().replace(/[:.]/g, '-').slice(0, 16);
+  const isi = [
+    '='.repeat(50),
+    '  PUTRI Chat Log',
+    `  Tanggal: ${now.toLocaleDateString('id-ID', {day:'2-digit', month:'long', year:'numeric'})}`,
+    '='.repeat(50), '',
+    ...logChat
+  ].join('\n');
+  const blob = new Blob([isi], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `putri_log_${ts}.txt`;
+  a.click();
+}
+
+// Enter to send, Shift+Enter for newline
+inputEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    kirimPesan();
+  }
+});
+
+// Auto resize textarea
+inputEl.addEventListener('input', () => {
+  inputEl.style.height = 'auto';
+  inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
+});
+
+// Init
+tampilkanPembuka();
+</script>
+</body>
+</html>

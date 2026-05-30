@@ -1,0 +1,9 @@
+# PUTRI — Requirements
+# Core: hanya Python standard library (re, random, tkinter, threading, datetime, os)
+# Tidak membutuhkan dependency eksternal untuk menjalankan chatbot.
+
+# Untuk build .exe saja:
+pyinstaller>=5.0
+
+# Opsional untuk development / testing:
+# pytest>=7.0
