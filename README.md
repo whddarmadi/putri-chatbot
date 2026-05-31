@@ -13,6 +13,7 @@
 [![GUI](https://img.shields.io/badge/GUI-Tkinter-blue?style=for-the-badge)](#)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Portfolio%20Project-orange?style=for-the-badge)](#)
+[![HTML](https://img.shields.io/badge/Web-HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](#)
 
 </div>
 
@@ -21,8 +22,10 @@
 ## 📖 Deskripsi
 
 <div align="center">
-  <img src="assets/putri.png" width="200" alt="PUTRI Character">
+  <img src="assets/putri.png" width="180" alt="PUTRI Character" style="border-radius: 50%; border: 3px solid #e94560;">
 </div>
+
+---
 
 **PUTRI** adalah *conversational agent* berbasis aturan (rule-based) yang dikembangkan menggunakan Python murni. Proyek ini mengimplementasikan teknik dasar Natural Language Processing (NLP) melalui pencocokan pola Regular Expression (Regex) dan teknik refleksi linguistik, yang merupakan inti dari arsitektur ELIZA klasik.
 
@@ -36,13 +39,14 @@ Nilai jual utama PUTRI adalah kemampuannya melakukan **code-mixing** (campur kod
 |---|---|
 | 🧠 **Teknik Refleksi ELIZA** | Capture groups untuk memantulkan kembali pernyataan user, menciptakan ilusi empati mesin |
 | 🌏 **Bilingual ID-Jawa** | Mengenali dan merespons dalam bahasa Indonesia dan bahasa Jawa secara natural |
-| 🗂️ **50+ Pola Aturan** | Mencakup sapaan, identitas, religi, keluh kesah, bercanda, hingga easter egg tersembunyi |
+| 🗂️ **100+ Pola Aturan** | Mencakup sapaan, panggilan, identitas, religi, makanan khas Jawa, binatang ternak, nama tempat, keluh kesah, umpatan, hingga easter egg tersembunyi |
 | 🧹 **Preprocessing Cerdas** | Normalisasi slang (yg→yang, gk→nggak, dll) untuk pencocokan lebih robust |
 | 🖥️ **GUI Desktop** | Antarmuka grafis berbasis Tkinter — tidak perlu terminal! |
 | 💬 **Typing Indicator** | Animasi "PUTRI sedang mengetik..." untuk pengalaman percakapan yang lebih natural |
 | 📝 **Simpan Log Chat** | Export riwayat percakapan ke file `.txt` otomatis dengan timestamp |
 | 🔒 **Zero Dependencies** | Hanya menggunakan Python Standard Library (re, tkinter, threading) |
 | 📦 **Portable .exe** | Bisa dikompilasi menjadi file `.exe` untuk distribusi tanpa Python |
+| 🌐 **Versi HTML** | Alternatif berbasis browser, bisa dibuka langsung tanpa instalasi apapun |
 
 ---
 
@@ -58,6 +62,10 @@ putri-chatbot/
 ├── .gitignore             # 🚫 File yang dikecualikan dari Git
 ├── README.md              # 📖 Dokumentasi ini
 ├── putri.html             # 🌐 Aplikasi chatbot versi html
+│
+├── screenshots/           # 📸 Screenshot antarmuka
+│   ├── putri_html.png         # Tampilan versi HTML
+│   └── putri_py.png           # Tampilan versi Python/Desktop
 │
 └── assets/
     └── putri.png          # 🖼️ Ilustrasi karakter PUTRI
@@ -114,7 +122,29 @@ PUTRI: Ngoding nopo mancing emosi niki? Sing sabar ya ngadepin sintaks error �
 
 Kamu : assalamualaikum
 PUTRI: Wa'alaikumsalam wr. wb.! Ada yang bisa PUTRI bantu hari ini? 😇
+
+Kamu : put, udah makan belum?
+PUTRI: Putri mah makannya listrik! Kalau colokan cabut, ya lapar deh 🔌😂
+
+Kamu : suka cempe ga?
+PUTRI: CEMPE!! 🐐💕 Itu binatang paling menggemaskan sedunia! Putri suka banget sama cempe!
+
+Kamu : jancuk!
+PUTRI: Hei! Bahasanya dijaga dong! PUTRI ga mau denger kata-kata kayak gitu 😤🚫
 ```
+
+---
+
+## 🖼️ Tampilan Antarmuka
+
+<div align="center">
+
+| Versi HTML (Browser) | Versi Desktop (Python) |
+|:---:|:---:|
+| ![HTML Interface](screenshots/putri_html.png) | ![Desktop Interface](screenshots/putri_py.png) |
+| Buka langsung di browser | Aplikasi desktop standalone |
+
+</div>
 
 ---
 
