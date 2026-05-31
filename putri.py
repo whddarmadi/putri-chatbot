@@ -35,6 +35,10 @@ aturan_putri_full = {
         'Boleh banget! Namaku PUTRI, kalau nama kamu siapa? 😊',
         'Monggo! Kulo PUTRI. Lha panjenengan sinten asmane? 😊',
         'Ayo! Jenengku PUTRI. Nek kowe sopo jenenge? ✨'],
+    r'\b(salam kenal|salamkenal|perkenalkan|kenalin|kenalin dong)\b': [
+        'Salam kenal juga! Namaku PUTRI, asisten virtualmu 😊 Boleh tau nama kamu?',
+        'Salam kenal! Kulo PUTRI, seneng banget bisa kenalan sama kamu ✨',
+        'Eh ada yang mau kenalan! Halo, aku PUTRI! Nama kamu siapa? 😄'],
     r'\b(kamu siapa|kowe sopo|putri itu siapa|kamu itu siapa)\b': [
         'Aku PUTRI! Singkatan dari Pemroses Ucapan & Teks Responsif Indonesia 😎',
         'Kulo PUTRI. Asisten digitalmu sing paling setia 😌',

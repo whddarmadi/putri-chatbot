@@ -211,6 +211,7 @@ const aturan = [
   [/\b(sore|sonten)\b/i, ['Sore! Udah beres belum kerjaannya? Waktunya santai~ 🌅','Sore! Yuk ngopi sore sambil ngobrol santai ☕']],
   [/\b(malam|wengi)\b/i, ['Malam! Belum tidur tah? Jangan begadang mulu ih 😠','Sugeng dalu... Awas ada yang nemenin di belakang 👻 canda ding! 😝']],
   [/\b(?:namaku|nama aku|nama saya|panggil aku|jenengku|asmane)\s+([a-zA-Z]+)/i, (m) => [`Halo ${cap(m[1])}! Salam kenal ya, PUTRI seneng deh ngobrol sama kamu ✨`,`Sugeng tepang, ${cap(m[1])}! Kulo PUTRI, asisten setiamu 😌`,`Wah, nama yang bagus! Halo ${cap(m[1])}, ada yang bisa PUTRI bantu hari ini?`]],
+  [/\b(salam kenal|salamkenal|perkenalkan|kenalin|kenalin dong)\b/i, ['Salam kenal juga! Namaku PUTRI, asisten virtualmu 😊 Boleh tau nama kamu?','Salam kenal! Kulo PUTRI, seneng banget bisa kenalan sama kamu ✨','Eh ada yang mau kenalan! Halo, aku PUTRI! Nama kamu siapa? 😄']],
   [/\b(kenalan yuk|kenalan|tepangan)\b/i, ['Boleh banget! Namaku PUTRI, kalau nama kamu siapa? 😊','Monggo! Kulo PUTRI. Lha panjenengan sinten asmane? 😊','Ayo! Jenengku PUTRI. Nek kowe sopo jenenge? ✨']],
   [/\b(kamu siapa|kowe sopo|putri itu siapa|kamu itu siapa)\b/i, ['Aku PUTRI! Singkatan dari Pemroses Ucapan & Teks Responsif Indonesia 😎','Kulo PUTRI. Asisten digitalmu sing paling setia 😌','Aku PUTRI! Asisten paling imut yang pernah dibikin 😝']],
   [/\b(namamu|jenengmu)\b/i, ['Namaku PUTRI. Singkatan dari Pemroses Ucapan & Teks Responsif Indonesia lho! Keren kan? 😎']],
