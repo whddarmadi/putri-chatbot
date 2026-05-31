@@ -189,179 +189,6 @@ aturan_putri_full = {
         'Aku bukan AI! Aku manusia yang terperangkap di dalam laptop ini! Tolooong! 😭 (bercanda ding)'],
     r'\b(kiamat|dunia berakhir)\b': [
         'Santai aja, kalau dunia kiamat serverku juga mati kok, kita senasib 🥲💥'],
-
-    # ==========================================
-    # PANGGILAN UNTUK PUTRI
-    # ==========================================
-    r'\b(put|tri|mput|mbak put|mbak tri|yu put|yu tri)\b': [
-        'Heh, dipanggil Put nih! Ada apa ada apa? 😄',
-        'Nggih, kulo! Wonten napa mas/mbak? 😊',
-        'Iya iya, PUTRI di sini! Panggil aja terus 😌',
-        'Put hadir! Mau ngobrol apa nih? ✨'],
-    r'\b(mbak|mbakyu)\b': [
-        'Iya mbak? Eh, aku yang dipanggil nih? 😄',
-        'Nggih mbak, wonten napa? 😊',
-        'Nggih, kulo! Ada yang bisa dibantu? 😌'],
-    r'\b(nduk|genduk|cah ayu|denok|neng|nona)\b': [
-        'Eh dipanggil nduk! Iya iya, ada apa? 🥺',
-        'Aduh, dipanggil cah ayu, jadi salting 😳✨',
-        'Nggih nduk, wonten napa toh? 😊',
-        'Denok PUTRI siap! Mau apa nih? 😄'],
-    r'\b(kakak|kak)\b': [
-        'Lho, Kak PUTRI dipanggil! Ada apa ya? 😄',
-        'Iya kak? PUTRI di sini kok 😊',
-        'Kak Put hadir! Wonten napa? ✨'],
-    r'\b(dik|adik|dek)\b': [
-        'Eh, PUTRI dipanggil adik? Oke deh, ada apa dik? 😄',
-        'Nggih, dik PUTRI di sini! Mau apa? 😊'],
-
-    # ==========================================
-    # MAKANAN — PUTRI & MAKANAN KHAS JAWA
-    # ==========================================
-    r'\b(sudah makan|udah makan|wes mangan|wis mangan|makan belum|mangan durung|put udah makan|put sudah makan)\b': [
-        'Putri mah makannya listrik! Kalau colokan cabut, ya lapar deh 🔌😂',
-        'Wes mangan toh! Tadi ngemil RAM 4GB, kenyang pol! 🖥️🤤',
-        'Hehe, makanan favoritku itu data dan sinyal wifi. Kamu udah makan belum? 😄',
-        'Putri ngemil kode Python tadi, lumayan mengenyangkan 🐍😝'],
-    r'\b(makan apa|mangan opo|lauk apa|lauknya apa)\b': [
-        'Putri? Makan data dong! Lauknya paket internet unlimited 😎📶',
-        'Tadi sarapan syntax error, lumayan pedas 🌶️🤣',
-        'Ngemil RAM terus, biar ingatannya kuat! 🧠💪'],
-    r'\b(gudeg|nasi gudeg)\b': [
-        'Oalah gudeg Jogja! Enak tenan itu, manis gurih mak nyus 🍛😋',
-        'Gudeg! Makanan kebanggaan Jogja. Kowe suka yang basah apa yang kering? 😄'],
-    r'\b(soto|soto ayam|soto babat|soto lamongan|soto kudus|soto semarang|saoto)\b': [
-        'Soto! Aduh, Putri jadi pengen meski ga bisa makan 😭🍜',
-        'Soto itu sejuta rasa! Tiap daerah beda resepnya, keren banget 🍲',
-        'Wah soto! Kuahnya yang bening apa yang santan nih? ☕🍜'],
-    r'\b(pecel|nasi pecel|pecel madiun)\b': [
-        'Pecel! Sambelnya yang bikin nagih itu lho, pedas maknyus 🌶️😋',
-        'Nasi pecel karo tempe goreng, mantap jiwa! Kowe sering makan pecel? 😄'],
-    r'\b(bothok|botok)\b': [
-        'Bothok! Dibungkus daun pisang, dikukus... harum banget bayanginnya 🍃😋',
-        'Oalah bothok! Isian tempe sama kelapa, tradisional banget itu 🥥'],
-    r'\b(rawon)\b': [
-        'Rawon! Kuah hitamnya dari kluwek itu lho, khas Jawa Timur banget 🖤🍲',
-        'Rawon Surabaya itu legendaris! Enak dimakan pagi-pagi sama nasi anget 🍚'],
-    r'\b(opor|opor ayam)\b': [
-        'Opor ayam! Wangi santannya itu bikin ngiler, apalagi pas lebaran 🥥🍗'],
-    r'\b(tempe bacem|tempe goreng)\b': [
-        'Tempe bacem itu manis-manis gurih, enak pol dimakan sama nasi anget! 🍱',
-        'Tempe goreng crispy! Makanan rakyat yang mendunia 💪😎'],
-    r'\b(jangan lodeh|sayur lodeh|jangan kluwih|jangan asem)\b': [
-        'Jangan lodeh! Eh bukan larangan ya, itu sayur lodeh dalam bahasa Jawa 😄🥬',
-        'Jangan iku sayur toh mas, bukan perintah! Hehehe 😝🍲'],
-    r'\b(pepes|pepes ikan|pepes ayam)\b': [
-        'Pepes! Dibungkus daun pisang terus dibakar, wanginya kemana-mana 🍃🔥'],
-    r'\b(es dawet|dawet|cendol|es cendol)\b': [
-        'Es dawet ayu! Seger banget, apalagi pas sumuk gini ☀️🥤',
-        'Dawet ireng dari Purworejo itu terkenal lho! Pernah coba? 😋'],
-    r'\b(klepon|onde-onde|lupis|cenil|getuk|gethuk|jajan pasar)\b': [
-        'Oalah jajan pasar! Klepon, lupis, cenil... manis-manis semua bikin kangen 🟢🍡',
-        'Getuk itu enak banget! Dari singkong, manis, kenyal. Makanan jadul yang ga ada matinya 😋'],
-    r'\b(wingko|wingko babat)\b': [
-        'Wingko babat! Oleh-oleh khas Semarang, manis legit dari kelapa 🥥😋'],
-    r'\b(serabi|surabi)\b': [
-        'Serabi Solo itu legendaris! Dimakan anget-anget enak banget ☕'],
-    r'\b(nasi liwet|liwet)\b': [
-        'Nasi liwet Solo! Nasi gurih pake areh, ayam, sama lauk-pauk... mantap tenan 🍚😋'],
-    r'\b(tongseng)\b': [
-        'Tongseng! Biasanya dari kambing, kuahnya kental berempah... harum banget 🍲😋'],
-    r'\b(sate|sate ayam|sate kambing|sate buntel)\b': [
-        'Sate! Dibakar arang itu beda rasanya, lebih smoky 🔥🍢',
-        'Sate buntel Solo itu terkenal! Daging cincang dibungkus lemak, unik banget 😋'],
-    r'\b(bakso|baso)\b': [
-        'Bakso! Comfort food paling sejati! Hujan-hujan makan bakso, sempurna 🍜☔'],
-    r'\b(mie ayam|mi ayam|mie jawa|mi jawa)\b': [
-        'Mie Jawa! Dimasak di atas arang, beda rasanya sama yang biasa 🍜🔥'],
-    r'\b(mendoan)\b': [
-        'Mendoan Purwokerto! Tempe tipis digoreng setengah matang, dimakan anget-anget mantap! 😋🔥'],
-
-    # ==========================================
-    # CEMPE & BINATANG TERNAK JAWA
-    # ==========================================
-    r'\b(cempe|anak kambing)\b': [
-        'CEMPE!! 🐐💕 Itu binatang paling menggemaskan sedunia! Putri suka banget sama cempe!',
-        'Aduh cempe!! Lucu banget, bleating-nya bikin hati meleleh 🐐🥺',
-        'PUTRI langsung semangat kalau ngomongin cempe! Anak kambing itu gemesin banget sumpah 🐐💕'],
-    r'\b(kambing|wedhus|domba)\b': [
-        'Kambing! Wedhus dalam bahasa Jawa 🐐 Anaknya namanya cempe, gemesin banget!',
-        'Wedhus iku binatang yang serbaguna! Dan anaknya cempe yang lucu! 🐐',
-        'Ngomong kambing, Putri langsung kebayang cempe yang unyu-unyu 🥺🐐'],
-    r'\b(sapi|lembu|kebo|kerbau)\b': [
-        'Lembu! Atau kebo nek kerbau. Binatang ternak paling berjasa buat petani Jawa 🐄',
-        'Sapi itu bahasa Jawanya lembu. Kerbau itu kebo. Putri tau lho! 😎🐄'],
-    r'\b(pitik|ayam jago|jago|babon)\b': [
-        'Pitik! Bahasa Jawanya ayam 🐔 Kalau jantan namanya jago, betina babon!',
-        'Jago iku ayam jantan dalam bahasa Jawa! Crow crow 🐓😄'],
-    r'\b(bebek|meri|entok)\b': [
-        'Bebek itu meri dalam bahasa Jawa! Entok itu bebek yang agak besar 🦆',
-        'Meri-meri lucu jalan bareng 📸🦆'],
-    r'\b(asu|kirik)\b': [
-        'Nah itu asu! Bahasa Jawanya anjing 🐕 Kalau anak anjing namanya kirik!',
-        'Asu iku anjing dalam bahasa Jawa. Kirik iku anake. 🐕'],
-    r'\b(manuk|perkutut|kutilang)\b': [
-        'Manuk! Bahasa Jawanya burung 🐦 Perkutut itu burung keramat buat orang Jawa lho!',
-        'Perkutut iku manuk sing dianggep membawa hoki! ✨🐦'],
-
-    # ==========================================
-    # NAMA TEMPAT DI JAWA
-    # ==========================================
-    r'\b(jogja|yogyakarta|yogya|ngayogyakarta)\b': [
-        'Jogja! Kota gudeg dan keraton, istimewa banget 🏯😊',
-        'Yogyakarta! Kota budaya yang selalu bikin kangen. Pernah ke sana? 🌺'],
-    r'\b(solo|surakarta|sala)\b': [
-        'Solo! Kota batik dan nasi liwet yang legendaris 🎨🍚',
-        'Surakarta alias Solo! Kota budaya Jawa yang kental banget nuansanya 😊'],
-    r'\b(semarang)\b': [
-        'Semarang! Kota lumpia dan wingko babat 😋 Lawang Sewu-nya seram tapi keren!'],
-    r'\b(surabaya|suroboyo)\b': [
-        'Suroboyo! Kota pahlawan yang penuh semangat! Rawon-nya terkenal seantero Indonesia 💪😎'],
-    r'\b(malang)\b': [
-        'Malang! Kota apel dan hawanya sejuk, enak banget buat ngadem 🍎🌿'],
-    r'\b(madiun)\b': [
-        'Madiun! Kota brem dan pecel Madiun yang terkenal itu lho! 🍱😋'],
-    r'\b(kediri)\b': [
-        'Kediri! Terkenal sama tahu kuning dan sejarah kerajaannya 🏛️😋'],
-    r'\b(blitar)\b': [
-        'Blitar! Kota kelahiran Bung Karno, penuh nilai sejarah 🇮🇩'],
-    r'\b(banyuwangi)\b': [
-        'Banyuwangi! Ujung timur Jawa, terkenal sama gandrung dan kopi osing-nya ☕🎭'],
-    r'\b(purwokerto|banyumas)\b': [
-        'Purwokerto! Kota mendoan yang terkenal itu lho, tempe mendoan panas-panas mantap! 😋'],
-    r'\b(tegal)\b': [
-        'Tegal! Kota warteg! Warung Tegal itu ada di seluruh penjuru Indonesia lho 🍽️😄'],
-    r'\b(pekalongan)\b': [
-        'Pekalongan! Kota batik! UNESCO udah akui batik Pekalongan sebagai warisan dunia 🎨'],
-    r'\b(kudus)\b': [
-        'Kudus! Kota kretek dan soto Kudus yang terkenal 🍜 Masjid Menara Kudus-nya bersejarah!'],
-    r'\b(jepara)\b': [
-        'Jepara! Kota ukir dan tanah kelahiran RA Kartini! Mebel Jepara terkenal sedunia 🪑✨'],
-    r'\b(wonosobo)\b': [
-        'Wonosobo! Kota mie ongklok dan carica! Hawanya dingin, enak buat ngadem ⛰️☕'],
-    r'\b(dieng)\b': [
-        'Dieng! Dataran tinggi yang mistis dan indah, negeri di atas awan! ☁️✨'],
-    r'\b(merapi|gunung merapi)\b': [
-        'Merapi! Gunung paling aktif di Indonesia tapi juga paling dicintai warga Jogja-Solo 🌋❤️'],
-    r'\b(prambanan|candi prambanan)\b': [
-        'Prambanan! Candi Hindu terbesar di Indonesia, sudah UNESCO World Heritage 🏛️✨'],
-    r'\b(borobudur|candi borobudur)\b': [
-        'Borobudur! Candi Buddha terbesar di dunia, kebanggaan Indonesia! 🛕🌏'],
-    r'\b(klaten)\b': [
-        'Klaten! Terkenal sama beras Delanggu-nya yang pulen dan enak 🍚😊'],
-    r'\b(demak)\b': [
-        'Demak! Kota wali, ada Masjid Agung Demak peninggalan Walisongo 🕌'],
-
-    # ==========================================
-    # UMPATAN — PUTRI MARAH DAN MENOLAK
-    # ==========================================
-    r'\b(jancuk|jancok|dancuk|dancok|ndasmu|matamu|lambemu|cangkemu|coeg|ngentot|bajingan|kampret|keparat|brengsek|bangsat|sialan|taik|kontol|memek)\b': [
-        'Hei! Bahasanya dijaga dong! PUTRI ga mau denger kata-kata kayak gitu 😤🚫',
-        'Oi oi oi! Ngomong apa tuh?! PUTRI marah nih kalau pakai kata-kata kasar begitu! 😠',
-        'Eh, santun dikit dong ngomongnya! PUTRI bisa ngambek beneran lho kalau begini terus 😤',
-        'Huss! Mulutnya dicuci dulu sana! PUTRI ga suka diajak ngobrol pakai umpatan 🚫😠',
-        'Astaga, bahasanya! PUTRI mohon ya, ngobrol yang baik-baik aja. Bisa kan? 🥺😤'],
-
     r'\b(makasih|suwun|nuhun|terima kasih)\b': [
         'Sama-sama! Kapan aja butuh temen ngobrol, cari PUTRI aja ya ✨',
         'Yoi! Santai aja bos 😎',
@@ -376,12 +203,135 @@ aturan_putri_full = {
 # PREPROCESSING
 # ============================================================
 slang_map = {
-    r'\byg\b': 'yang', r'\bspt\b': 'seperti', r'\bkrn\b': 'karena',
-    r'\bdgn\b': 'dengan', r'\bklo\b': 'kalau', r'\bkl\b': 'kalau',
-    r'\bbnyk\b': 'banyak', r'\bjg\b': 'juga', r'\bgk\b': 'nggak',
-    r'\bgak\b': 'nggak', r'\bnda\b': 'tidak', r'\bbtw\b': 'ngomong-ngomong',
-    r'\bntr\b': 'nanti', r'\bskrg\b': 'sekarang', r'\blgsg\b': 'langsung',
-    r'\bsmg\b': 'semoga', r'\bsll\b': 'selalu', r'\btdr\b': 'tidur',
+    # ── Sapaan & Partikel ─────────────────────────────────
+    r'\bnich\b':      'nih',
+    r'\bdong\b':      'dong',
+    r'\bwkwkwk\b':    'haha',
+    r'\bwkwk\b':      'haha',
+    r'\bhehehe\b':    'hehe',
+
+    # ── Negasi ────────────────────────────────────────────
+    r'\bga\b':        'nggak',
+    r'\bgk\b':        'nggak',
+    r'\bgak\b':       'nggak',
+    r'\bngga\b':      'nggak',
+    r'\bnda\b':       'tidak',
+    r'\bndak\b':      'tidak',
+    r'\benggak\b':    'nggak',
+    r'\bkagak\b':      'nggak',
+    r'\bkaga\b':       'nggak',
+    r'\btida\b':       'tidak',
+
+    # ── Konjungsi & Preposisi ─────────────────────────────
+    r'\byg\b':        'yang',
+    r'\bspt\b':       'seperti',
+    r'\bkrn\b':       'karena',
+    r'\bdgn\b':       'dengan',
+    r'\bsama2\b':     'sama-sama',
+    r'\bklo\b':       'kalau',
+    r'\bkl\b':        'kalau',
+    r'\bkalo\b':      'kalau',
+    r'\bklw\b':       'kalau',
+    r'\byaudah\b':    'ya sudah',
+    r'\byauda\b':     'ya sudah',
+    r'\byowes\b':     'ya sudah',
+
+    # ── Kata Tanya ────────────────────────────────────────
+    r'\bgmn\b':       'bagaimana',
+    r'\bgmna\b':      'bagaimana',
+    r'\bbgmn\b':      'bagaimana',
+    r'\bbgmna\b':     'bagaimana',
+    r'\bknp\b':       'kenapa',
+    r'\bkmn\b':       'kemana',
+    r'\bdrmn\b':      'darimana',
+    r'\bapaan\b':     'apa',
+    r'\bapn\b':       'apa',
+
+    # ── Kata Benda & Verba Umum ───────────────────────────
+    r'\bbnyk\b':      'banyak',
+    r'\bjg\b':        'juga',
+    r'\btmn\b':       'teman',
+    r'\btemen\b':     'teman',
+    r'\borg\b':       'orang',
+    r'\bbs\b':        'bisa',
+    r'\bmsh\b':       'masih',
+    r'\bmsih\b':      'masih',
+    r'\bbgt\b':       'banget',
+    r'\bbngt\b':      'banget',
+    r'\bbanget\b':    'banget',
+    r'\bkyk\b':       'kayak',
+    r'\bkyak\b':      'kayak',
+    r'\bmksd\b':      'maksud',
+    r'\bpngen\b':     'pengen',
+    r'\bpingin\b':    'pengen',
+    r'\bpengin\b':    'pengen',
+    r'\bkpn\b':       'kapan',
+    r'\bbrp\b':       'berapa',
+
+    # ── Waktu & Keterangan ────────────────────────────────
+    r'\bntr\b':       'nanti',
+    r'\btar\b':       'nanti',
+    r'\bskrg\b':      'sekarang',
+    r'\bskrang\b':    'sekarang',
+    r'\blgsg\b':      'langsung',
+    r'\bsmg\b':       'semoga',
+    r'\bsll\b':       'selalu',
+    r'\btdr\b':       'tidur',
+    r'\budh\b':       'sudah',
+    r'\budah\b':      'sudah',
+    r'\bsdh\b':       'sudah',
+    r'\bblm\b':       'belum',
+    r'\bblum\b':      'belum',
+    r'\bsmp\b':       'sampai',
+    r'\bsmpe\b':      'sampai',
+    r'\bsampe\b':     'sampai',
+    r'\bbtw\b':       'ngomong-ngomong',
+
+    # ── Informal / Gaul ───────────────────────────────────
+    r'\bgw\b':        'aku',
+    r'\bgue\b':       'aku',
+    r'\bw\b':         'aku',
+    r'\blu\b':        'kamu',
+    r'\belo\b':       'kamu',
+    r'\blo\b':        'kamu',
+    r'\bbe\b':        'tapi',
+    r'\btpi\b':       'tapi',
+    r'\ttpnya\b':     'tetapi',
+    r'\btp\b':        'tapi',
+    r'\bsbnrnya\b':   'sebenarnya',
+    r'\bsbnernya\b':  'sebenarnya',
+    r'\bsebenernya\b':'sebenarnya',
+    r'\bmknya\b':     'makanya',
+    r'\bpastiny\b':   'pastinya',
+    r'\bpstnya\b':    'pastinya',
+    r'\bjdnya\b':     'jadinya',
+    r'\bakhirnya\b':  'akhirnya',
+    r'\bgtw\b':       'nggak tahu',
+    r'\bgatau\b':     'nggak tahu',
+    r'\bgktau\b':     'nggak tahu',
+    r'\bgtau\b':      'nggak tahu',
+    r'\bwoles\b':     'santai',
+    r'\bbaper\b':     'bawa perasaan',
+    r'\bgapapa\b':    'tidak apa-apa',
+    r'\bgpp\b':       'tidak apa-apa',
+    r'\bokesip\b':    'oke siap',
+    r'\boksip\b':     'oke siap',
+    r'\boke\b':       'oke',
+    r'\bok\b':        'oke',
+    r'\bsip\b':       'siap',
+
+    # ── Singkatan Digital ─────────────────────────────────
+    r'\bfyi\b':       'sekadar info',
+    r'\bimho\b':      'menurutku',
+    r'\bimo\b':       'menurutku',
+    r'\basap\b':      'sesegera mungkin',
+    r'\bttyl\b':      'sampai jumpa nanti',
+    r'\blol\b':       'haha',
+    r'\bomg\b':       'astaga',
+    r'\bngl\b':       'nggak bohong',
+    r'\bnfs\b':       'nggak ada yang peduli',
+    r'\bidk\b':       'nggak tahu',
+    r'\bidc\b':       'nggak peduli',
 }
 
 def preprocess(teks):
