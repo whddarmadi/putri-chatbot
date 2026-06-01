@@ -111,8 +111,8 @@ python build_exe.py
 Kamu : halo putri!
 PUTRI: Hai hai! Udah kangen aja nih sama PUTRI ✨
 
-Kamu : nama saya Budi
-PUTRI: Halo Budi! Salam kenal ya, PUTRI seneng deh ngobrol sama kamu ✨
+Kamu : nama saya Wahid
+PUTRI: Halo Wahid! Salam kenal ya, PUTRI seneng deh ngobrol sama kamu ✨
 
 Kamu : aku merasa capek banget hari ini
 PUTRI: Lho, kok bisa kamu ngerasa capek banget hari ini? Coba cerita ke PUTRI pelan-pelan.
