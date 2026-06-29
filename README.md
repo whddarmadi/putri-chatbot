@@ -23,7 +23,7 @@
 
 <div align="center">
   <img src="assets/putri.png" width="180" alt="PUTRI Character" style="border-radius: 50%; border: 3px solid #e94560;">
-  [![GitHub](https://img.shields.io/badge/GitHub-whddarmadi-181717?style=flat-square&logo=github)]([https://github.com/whddarmadi](https://whddarmadi.github.io/putri-chatbot/putri.html))
+  [![DEMO]([https://github.com/whddarmadi](https://whddarmadi.github.io/putri-chatbot/putri.html)
 </div>
 
 ---
