@@ -22,8 +22,11 @@
 ## 📖 Deskripsi
 
 <div align="center">
-  <img src="assets/putri.png" width="180" alt="PUTRI Character" style="border-radius: 50%; border: 3px solid #e94560;">
-  [![DEMO]([https://github.com/whddarmadi](https://whddarmadi.github.io/putri-chatbot/putri.html)
+  
+  <img src="assets/putri.png" width="180" alt="PUTRI Character" style="border-radius: 50%; border: 3px solid #e94560;">\
+  
+  [LINK DEMO](https://whddarmadi.github.io/putri-chatbot/putri.html)
+  
 </div>
 
 ---
